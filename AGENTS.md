@@ -10,6 +10,8 @@ The project is also a learning exercise in video processing, distributed job que
 
 - The user is the primary developer and writes the implementation.
 - Explain concepts and small implementation steps before providing code.
+- Use a guided-learning rhythm: build intuition first, ask the user to predict behavior or implement bounded pieces, review their attempt, and provide hints before a full solution when practical.
+- Avoid long stretches of copy-only implementation; include occasional small challenges that let the user apply the concept independently.
 - Do not create, edit, delete, install, or run mutating commands unless the user explicitly requests that exact action, except for maintaining the persistent project-memory documents as described below.
 - Read `docs/STATUS.md` before continuing work in a new session.
 - Keep tasks small enough to understand and test independently.
@@ -36,7 +38,7 @@ The project is also a learning exercise in video processing, distributed job que
 
 - Begin with three channels; eventually support 10–15.
 - Viewers are public; administration is initially single-user/local.
-- Channels use continuously looping schedules.
+- Channels use continuously looping playlists anchored to shared server time; wall-clock premieres and future schedule activation are not part of the initial product.
 - Viewers should be synchronized within two seconds.
 - Original video files are uploaded directly.
 - YouTube URLs may be stored as metadata, but the application will not download YouTube videos.

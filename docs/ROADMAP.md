@@ -18,8 +18,8 @@
 ## Phase 2 — Domain and API
 
 - PostgreSQL schema.
-- Channels, assets, playlists, and schedule versions.
-- Draft and publish workflow.
+- Channels, assets, ordered playlists, and playback epochs.
+- Atomic playlist update workflow.
 - Unit and integration tests.
 
 ## Phase 3 — Video pipeline
@@ -61,4 +61,3 @@
 - Load testing.
 - Alerting.
 - Operational documentation.
-

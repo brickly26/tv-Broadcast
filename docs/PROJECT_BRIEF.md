@@ -34,7 +34,7 @@ TV Broadcast is a web-based set-top-box experience. It provides programmed chann
 - View processing status and failures.
 - Add processed videos to channel playlists.
 - Reorder playlist items.
-- Publish a new channel schedule.
+- Apply playlist changes to a channel.
 
 ### Video pipeline
 
@@ -68,5 +68,4 @@ TV Broadcast is a web-based set-top-box experience. It provides programmed chann
 
 ## Success criteria
 
-Two independent browser sessions can tune to the same channel and remain within two seconds of one another. An uploaded source video can be processed, published, scheduled, and played without manual media conversion.
-
+Two independent browser sessions can tune to the same channel and remain within two seconds of one another. An uploaded source video can be processed, published, added to a looping channel playlist, and played without manual media conversion.

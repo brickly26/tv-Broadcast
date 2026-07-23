@@ -1,6 +1,6 @@
 # ADR 0001: Use Scheduled Pseudo-Live HLS
 
-- Status: Accepted
+- Status: Superseded in part by ADR 0002
 - Date: 2026-07-21
 
 ## Context
@@ -16,6 +16,8 @@ Process prerecorded source videos into HLS video-on-demand assets. Store an auth
 Published schedule versions are immutable. Changes are made in a draft and activated at a defined future boundary.
 
 The first synchronization target is a maximum two-second difference between viewers under normal conditions.
+
+ADR 0002 retains prerecorded HLS assets, authoritative server time, and shared playback offsets, but replaces future-activated schedule versions with simpler epoch-anchored looping playlists.
 
 ## Consequences
 
@@ -38,4 +40,3 @@ The first synchronization target is a maximum two-second difference between view
 - Run a continuous live encoder for every channel.
 - Embed YouTube players and coordinate their playback positions.
 - Start every selected video from the beginning for each viewer.
-
