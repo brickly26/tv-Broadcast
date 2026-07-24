@@ -38,15 +38,16 @@ Guidance should move quickly through familiar application-development concepts w
 
 ## Last completed milestone
 
-The NestJS server-time endpoint was completed on 2026-07-24 through a red-green testing cycle. An in-memory HTTP test verifies the authoritative time response, JSON content type, and `Cache-Control: no-store` behavior using an injected controlled clock. The complete suite has eight passing tests, and type checking and whitespace validation pass.
+The executable NestJS API bootstrap was completed on 2026-07-24. The API builds with the Nest CLI, starts on port 3000 by default, honors a `PORT` override verified on port 3100, and serves `GET /api/time` through a real local HTTP connection. The complete suite has eight passing tests; type checking, the production build, and whitespace validation pass.
 
 ## Development environment inventory
 
 - Node.js: v22.16.0, managed under NVM
 - npm: 11.4.2
-- TypeScript project dependency: 7.0.2
+- TypeScript project dependency: 6.0.3
 - Vitest project dependency: 4.1.10
 - NestJS API dependencies: 11.1.28
+- NestJS CLI project dependency: 11.0.24
 - Supertest API test dependency: 7.2.2
 - SWC test transformer: 1.15.46 through unplugin-swc 1.5.9
 - Corepack: installed
@@ -64,11 +65,11 @@ The NestJS server-time endpoint was completed on 2026-07-24 through a red-green 
 
 ## Current task
 
-Review and commit the NestJS API foundation and server-time endpoint.
+Review and commit the executable NestJS API bootstrap and build configuration.
 
 ## Next task
 
-Add the executable NestJS application bootstrap and verify that the API can start locally.
+Define a one-channel current-program API contract that combines authoritative server time, a static looping playlist, and the existing playlist resolver.
 
 ## First implementation milestone
 
