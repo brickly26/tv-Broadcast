@@ -38,7 +38,7 @@ Guidance should move quickly through familiar application-development concepts w
 
 ## Last completed milestone
 
-The executable NestJS API bootstrap was completed on 2026-07-24. The API builds with the Nest CLI, starts on port 3000 by default, honors a `PORT` override verified on port 3100, and serves `GET /api/time` through a real local HTTP connection. The complete suite has eight passing tests; type checking, the production build, and whitespace validation pass.
+The one-channel current-program API slice was completed on 2026-07-24. `GET /api/channels/channel-1/current-program` combines one authoritative clock reading, a static looping playlist, and the shared resolver; an unknown channel returns `404`. The private scheduling workspace package is bundled into the deployable API artifact. The complete suite has ten passing tests, and type checking, the Webpack production build, known- and missing-channel runtime smoke checks, production dependency audit, and whitespace validation pass.
 
 ## Development environment inventory
 
@@ -50,6 +50,8 @@ The executable NestJS API bootstrap was completed on 2026-07-24. The API builds 
 - NestJS CLI project dependency: 11.0.24
 - Supertest API test dependency: 7.2.2
 - SWC test transformer: 1.15.46 through unplugin-swc 1.5.9
+- Webpack API bundler: 5.106.2 through Nest CLI
+- TypeScript Webpack loader: 9.6.2
 - Corepack: installed
 - pnpm: not installed
 - Yarn: not installed
@@ -63,13 +65,19 @@ The executable NestJS API bootstrap was completed on 2026-07-24. The API builds 
 - Local Git remote: `origin` points to https://github.com/brickly26/tv-Broadcast.git for fetch and push
 - Current working branch: `phase-1/synchronization-slice`
 
+## Dependency audit
+
+- Production dependencies: zero known vulnerabilities on 2026-07-24.
+- Development dependencies: four high-severity audit findings share one transitive Nest CLI build-tool chain through `fork-ts-checker-webpack-plugin`, `minimatch`, and `brace-expansion`.
+- The current npm force-fix recommendation would downgrade Nest CLI from 11 to 6. The breaking forced downgrade was rejected; monitor the upstream toolchain for a compatible fix.
+
 ## Current task
 
-Review and commit the executable NestJS API bootstrap and build configuration.
+Review and commit the one-channel current-program API slice and workspace-bundling configuration.
 
 ## Next task
 
-Define a one-channel current-program API contract that combines authoritative server time, a static looping playlist, and the existing playlist resolver.
+Define two short local HLS fixtures and their playback metadata for the one-channel synchronization slice.
 
 ## First implementation milestone
 

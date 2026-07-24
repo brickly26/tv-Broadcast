@@ -40,11 +40,20 @@ flowchart LR
 
 - Web application: set-top-box interface and administrative screens.
 - NestJS API using the default Express adapter: channels, playlists, assets, uploads, and current-program resolution.
+- Scheduling package: framework-independent looping-playlist types and resolution logic shared by deployable applications.
 - PostgreSQL: durable application, playlist, and playback-anchor data.
 - Redis and BullMQ: asynchronous job delivery.
 - Video workers: FFprobe and FFmpeg processing.
 - Object storage: source files, thumbnails, HLS manifests, and segments.
 - CDN: scalable media delivery in production.
+
+## Build and package model
+
+Private TypeScript workspace packages expose source entry points for reuse within the repository. Deployable applications bundle that source into their own runtime artifacts rather than requiring Node.js to execute TypeScript package entry points.
+
+The NestJS API uses the Nest CLI with Webpack and `ts-loader`. Root type checking remains a separate `tsc --noEmit` step, and Vitest continues to use SWC. The API bundle is emitted at `apps/api/dist/main.js`.
+
+This source-bundling approach applies to private internal packages. A package that later needs to be published or executed independently will require its own compiled JavaScript and declaration output.
 
 ## Initial pipeline
 
