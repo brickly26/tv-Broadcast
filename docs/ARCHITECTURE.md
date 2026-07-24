@@ -24,7 +24,7 @@ The initial product does not need program-specific air times, draft schedule ver
 
 ```mermaid
 flowchart LR
-    Admin["Admin"] --> API["Fastify API"]
+    Admin["Admin"] --> API["NestJS API"]
     API --> DB["PostgreSQL"]
     API --> Queue["Redis and BullMQ"]
     Queue --> Worker["Video workers"]
@@ -39,7 +39,7 @@ flowchart LR
 ## Main components
 
 - Web application: set-top-box interface and administrative screens.
-- API: channels, playlists, assets, uploads, and current-program resolution.
+- NestJS API using the default Express adapter: channels, playlists, assets, uploads, and current-program resolution.
 - PostgreSQL: durable application, playlist, and playback-anchor data.
 - Redis and BullMQ: asynchronous job delivery.
 - Video workers: FFprobe and FFmpeg processing.

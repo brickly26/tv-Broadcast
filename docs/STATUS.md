@@ -22,6 +22,8 @@ https://github.com/brickly26/tv-Broadcast
 - Synchronization target within two seconds
 - Testing included throughout development
 - npm workspaces for repository package management
+- NestJS with the default Express adapter for the API
+- A separate plain Node.js and TypeScript video worker
 
 ## Developer experience
 
@@ -36,7 +38,7 @@ Guidance should move quickly through familiar application-development concepts w
 
 ## Last completed milestone
 
-The epoch-anchored looping-playlist resolver was completed and committed on 2026-07-23. Seven controlled-clock tests cover slot resolution, item and cycle boundaries, forward and backward wrapping, an empty playlist, and a zero-duration item. Type checking and unused-code checks pass.
+The NestJS server-time endpoint was completed on 2026-07-24 through a red-green testing cycle. An in-memory HTTP test verifies the authoritative time response, JSON content type, and `Cache-Control: no-store` behavior using an injected controlled clock. The complete suite has eight passing tests, and type checking and whitespace validation pass.
 
 ## Development environment inventory
 
@@ -44,6 +46,9 @@ The epoch-anchored looping-playlist resolver was completed and committed on 2026
 - npm: 11.4.2
 - TypeScript project dependency: 7.0.2
 - Vitest project dependency: 4.1.10
+- NestJS API dependencies: 11.1.28
+- Supertest API test dependency: 7.2.2
+- SWC test transformer: 1.15.46 through unplugin-swc 1.5.9
 - Corepack: installed
 - pnpm: not installed
 - Yarn: not installed
@@ -59,11 +64,11 @@ The epoch-anchored looping-playlist resolver was completed and committed on 2026
 
 ## Current task
 
-Define the Fastify server-time endpoint behavior and its first failing test.
+Review and commit the NestJS API foundation and server-time endpoint.
 
 ## Next task
 
-Create the minimal API workspace needed to run that test, then implement the endpoint through red-green-refactor.
+Add the executable NestJS application bootstrap and verify that the API can start locally.
 
 ## First implementation milestone
 

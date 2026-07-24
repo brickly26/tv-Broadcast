@@ -24,7 +24,7 @@ The project is also a learning exercise in video processing, distributed job que
 
 - TypeScript
 - React with Vite
-- Fastify API
+- NestJS API with its default Express adapter
 - PostgreSQL
 - Redis and BullMQ
 - Separate Node.js video worker
