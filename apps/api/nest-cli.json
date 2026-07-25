@@ -5,6 +5,11 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "tsConfigPath": "tsconfig.build.json",
-    "webpack": true
+    "builder": {
+      "type": "webpack",
+      "options": {
+        "configPath": "webpack.config.cjs"
+      }
+    }
   }
 }

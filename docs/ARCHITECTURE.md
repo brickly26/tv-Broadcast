@@ -47,11 +47,17 @@ flowchart LR
 - Object storage: source files, thumbnails, HLS manifests, and segments.
 - CDN: scalable media delivery in production.
 
+## Local media delivery
+
+During the Phase 1 synchronization slice, the NestJS API serves generated HLS fixtures from `fixtures/hls/` under the `/media` URL prefix. This keeps the first browser experiment same-origin and avoids introducing object storage before playback synchronization is understood.
+
+The generated fixture files remain ignored by Git and are recreated by `scripts/generate-hls-fixtures.sh`. A clean checkout must run that generator before the media-delivery integration tests or local playback. Serving media through the API is a local-development adapter, not the production delivery architecture. Production manifests and segments will be stored in object storage and delivered through a CDN.
+
 ## Build and package model
 
 Private TypeScript workspace packages expose source entry points for reuse within the repository. Deployable applications bundle that source into their own runtime artifacts rather than requiring Node.js to execute TypeScript package entry points.
 
-The NestJS API uses the Nest CLI with Webpack and `ts-loader`. Root type checking remains a separate `tsc --noEmit` step, and Vitest continues to use SWC. The API bundle is emitted at `apps/api/dist/main.js`.
+The NestJS API uses the Nest CLI with Webpack and `ts-loader`. Root type checking remains a separate `tsc --noEmit` step, and Vitest continues to use SWC. The API bundle is emitted at `apps/api/dist/main.js`. Its custom Webpack configuration ignores the unused optional `@fastify/static` import exposed by `@nestjs/serve-static`; the API uses the Express adapter.
 
 This source-bundling approach applies to private internal packages. A package that later needs to be published or executed independently will require its own compiled JavaScript and declaration output.
 

@@ -38,7 +38,7 @@ Guidance should move quickly through familiar application-development concepts w
 
 ## Last completed milestone
 
-Reproducible synthetic HLS fixtures were completed on 2026-07-24. `scripts/generate-hls-fixtures.sh` generates a 60-second Program A and a 30-second Program B with distinct colors, labels, clocks, and audio tones. Both use H.264 video, AAC audio, and two-second VOD segments aligned to keyframes. Program A produces 30 segments and Program B produces 15. FFprobe inspection, complete decode checks, manifest checks, and visual playback checks pass. Generated media under `fixtures/hls/` remains ignored by Git; the generation script is the source-controlled artifact.
+Local HLS fixture delivery was completed on 2026-07-24. The NestJS Express application serves generated manifests and MPEG-TS segments from `fixtures/hls/` under `/media`. End-to-end coverage verifies manifest content and MIME type, binary segment delivery, and missing-file behavior. The complete suite has thirteen passing tests. Type checking, the Webpack production build, built-server manifest and segment smoke checks, production dependency audit, and whitespace validation pass.
 
 ## Development environment inventory
 
@@ -47,6 +47,7 @@ Reproducible synthetic HLS fixtures were completed on 2026-07-24. `scripts/gener
 - TypeScript project dependency: 6.0.3
 - Vitest project dependency: 4.1.10
 - NestJS API dependencies: 11.1.28
+- NestJS static-serving dependency: 5.0.5
 - NestJS CLI project dependency: 11.0.24
 - Supertest API test dependency: 7.2.2
 - SWC test transformer: 1.15.46 through unplugin-swc 1.5.9
@@ -73,11 +74,11 @@ Reproducible synthetic HLS fixtures were completed on 2026-07-24. `scripts/gener
 
 ## Current task
 
-Define local HLS-serving behavior and write its first failing HTTP integration test.
+Define the active program's manifest-location response behavior and write its first failing end-to-end API test.
 
 ## Next task
 
-Serve the generated HLS fixtures locally, then add the active program's manifest location to the one-channel playback response.
+Add the manifest location to current-program resolution, then begin the minimal browser playback client for the synchronization experiment.
 
 ## First implementation milestone
 
