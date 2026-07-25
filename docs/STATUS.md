@@ -38,7 +38,7 @@ Guidance should move quickly through familiar application-development concepts w
 
 ## Last completed milestone
 
-Local HLS fixture delivery was completed on 2026-07-24. The NestJS Express application serves generated manifests and MPEG-TS segments from `fixtures/hls/` under `/media`. End-to-end coverage verifies manifest content and MIME type, binary segment delivery, and missing-file behavior. The complete suite has thirteen passing tests. Type checking, the Webpack production build, built-server manifest and segment smoke checks, production dependency audit, and whitespace validation pass.
+The current-program playback-instruction response was completed on 2026-07-24. It now includes a root-relative `manifestUrl` derived from the validated channel ID and resolved program ID. Controlled-clock end-to-end coverage verifies matching Program A and Program B manifest URLs on opposite sides of the playlist boundary. The complete suite has fourteen passing tests, and type checking, the Webpack production build, and whitespace validation pass.
 
 ## Development environment inventory
 
@@ -74,11 +74,11 @@ Local HLS fixture delivery was completed on 2026-07-24. The NestJS Express appli
 
 ## Current task
 
-Define the active program's manifest-location response behavior and write its first failing end-to-end API test.
+Define the minimal browser playback client's behavior, acceptance criteria, and first automated test boundary.
 
 ## Next task
 
-Add the manifest location to current-program resolution, then begin the minimal browser playback client for the synchronization experiment.
+Create the smallest React and Vite workspace needed for the one-channel HLS playback experiment, then implement it through red-green-refactor.
 
 ## First implementation milestone
 

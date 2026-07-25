@@ -14,7 +14,7 @@ elapsed time = server time - playback epoch
 cycle offset = positive modulo(elapsed time, cycle duration)
 ```
 
-The API walks the ordered playlist to identify the video containing that cycle offset and its expected playback position. The client loads that video's HLS manifest, seeks to the expected position, and periodically corrects meaningful clock or playback drift.
+The API walks the ordered playlist to identify the video containing that cycle offset and its expected playback position. The current-program response includes authoritative server time, the resolved program and offset, and a manifest URL for that program. The client loads the HLS manifest, seeks to the expected position, and periodically corrects meaningful clock or playback drift.
 
 The playback epoch is a mathematical phase reference, not a wall-clock premiere or activation time. Positive modulo keeps the playlist cyclic even for a time before the chosen anchor.
 
