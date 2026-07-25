@@ -38,7 +38,7 @@ Guidance should move quickly through familiar application-development concepts w
 
 ## Last completed milestone
 
-The one-channel current-program API slice was completed on 2026-07-24. `GET /api/channels/channel-1/current-program` combines one authoritative clock reading, a static looping playlist, and the shared resolver; an unknown channel returns `404`. The private scheduling workspace package is bundled into the deployable API artifact. The complete suite has ten passing tests, and type checking, the Webpack production build, known- and missing-channel runtime smoke checks, production dependency audit, and whitespace validation pass.
+Reproducible synthetic HLS fixtures were completed on 2026-07-24. `scripts/generate-hls-fixtures.sh` generates a 60-second Program A and a 30-second Program B with distinct colors, labels, clocks, and audio tones. Both use H.264 video, AAC audio, and two-second VOD segments aligned to keyframes. Program A produces 30 segments and Program B produces 15. FFprobe inspection, complete decode checks, manifest checks, and visual playback checks pass. Generated media under `fixtures/hls/` remains ignored by Git; the generation script is the source-controlled artifact.
 
 ## Development environment inventory
 
@@ -73,11 +73,11 @@ The one-channel current-program API slice was completed on 2026-07-24. `GET /api
 
 ## Current task
 
-Review and commit the one-channel current-program API slice and workspace-bundling configuration.
+Define local HLS-serving behavior and write its first failing HTTP integration test.
 
 ## Next task
 
-Define two short local HLS fixtures and their playback metadata for the one-channel synchronization slice.
+Serve the generated HLS fixtures locally, then add the active program's manifest location to the one-channel playback response.
 
 ## First implementation milestone
 
