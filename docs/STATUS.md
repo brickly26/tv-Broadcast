@@ -38,7 +38,7 @@ Guidance should move quickly through familiar application-development concepts w
 
 ## Last completed milestone
 
-The current-program playback-instruction response was completed on 2026-07-24. It now includes a root-relative `manifestUrl` derived from the validated channel ID and resolved program ID. Controlled-clock end-to-end coverage verifies matching Program A and Program B manifest URLs on opposite sides of the playlist boundary. The complete suite has fourteen passing tests, and type checking, the Webpack production build, and whitespace validation pass.
+The React and Vite web foundation was completed on 2026-07-25. The `@tv-broadcast/web` workspace has a minimal React shell, Vite production build, development proxies for `/api` and `/media`, and an hls.js runtime dependency. A tested timing helper advances the authoritative program offset by estimated one-way response latency and media-loading time. The complete suite has fifteen passing tests. Root type checking, API and web production builds, development proxy and visual smoke checks, production dependency audit, and whitespace validation pass.
 
 ## Development environment inventory
 
@@ -46,6 +46,9 @@ The current-program playback-instruction response was completed on 2026-07-24. I
 - npm: 11.4.2
 - TypeScript project dependency: 6.0.3
 - Vitest project dependency: 4.1.10
+- React and React DOM web dependencies: 19.2.8
+- Vite web build dependency: 8.1.5
+- hls.js web dependency: 1.6.16
 - NestJS API dependencies: 11.1.28
 - NestJS static-serving dependency: 5.0.5
 - NestJS CLI project dependency: 11.0.24
@@ -74,11 +77,11 @@ The current-program playback-instruction response was completed on 2026-07-24. I
 
 ## Current task
 
-Define the minimal browser playback client's behavior, acceptance criteria, and first automated test boundary.
+Define the Channel 1 player's loading and playback-instruction behavior and write its first failing component test.
 
 ## Next task
 
-Create the smallest React and Vite workspace needed for the one-channel HLS playback experiment, then implement it through red-green-refactor.
+Add the minimum DOM-testing dependencies, implement playback-instruction loading, and then connect the video element through a separately testable HLS adapter.
 
 ## First implementation milestone
 

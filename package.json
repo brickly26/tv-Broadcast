@@ -16,7 +16,9 @@
     "typecheck": "tsc --noEmit",
     "build:api": "npm run build --workspace=@tv-broadcast/api",
     "start:api": "npm run start --workspace=@tv-broadcast/api",
-    "start:api:dev": "npm run start:dev --workspace=@tv-broadcast/api"
+    "start:api:dev": "npm run start:dev --workspace=@tv-broadcast/api",
+    "build:web": "npm run build --workspace=@tv-broadcast/web",
+    "start:web:dev": "npm run dev --workspace=@tv-broadcast/web"
   },
   "devDependencies": {
     "@nestjs/cli": "11.0.24",

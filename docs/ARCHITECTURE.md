@@ -59,6 +59,8 @@ Private TypeScript workspace packages expose source entry points for reuse withi
 
 The NestJS API uses the Nest CLI with Webpack and `ts-loader`. Root type checking remains a separate `tsc --noEmit` step, and Vitest continues to use SWC. The API bundle is emitted at `apps/api/dist/main.js`. Its custom Webpack configuration ignores the unused optional `@fastify/static` import exposed by `@nestjs/serve-static`; the API uses the Express adapter.
 
+The React application uses Vite and emits its production assets under `apps/web/dist/`. During development, Vite proxies `/api` and `/media` to the NestJS API so browser code can use the same root-relative URLs that production routing will expose.
+
 This source-bundling approach applies to private internal packages. A package that later needs to be published or executed independently will require its own compiled JavaScript and declaration output.
 
 ## Initial pipeline
