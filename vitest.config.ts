@@ -5,10 +5,17 @@ export default defineConfig({
   oxc: false,
   plugins: [
     swc.vite({
+      jsc: {
+        transform: {
+          react: {
+            runtime: "automatic",
+          },
+        },
+      },
       module: { type: "es6" },
     }),
   ],
   test: {
-    include: ["**/*.test.ts"],
+    include: ["**/*.test.ts", "**/*.test.tsx"],
   },
 });
