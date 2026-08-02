@@ -42,6 +42,8 @@ Guidance should move quickly through familiar application-development concepts w
 
 Milestones 1A and the pure portion of 1B were completed on 2026-08-02. Fifteen controlled-clock tests cover exact publication boundaries, future-segment exclusion, rolling-window expiry, program and playlist-cycle transitions, variable segment durations, and invalid playlist, duration, window, and pre-epoch inputs. Five manifest-rendering tests cover live HLS tags, sequence-only URLs, private-identifier and future-sequence non-disclosure, target-duration rounding, program-boundary discontinuities, and inconsistent-window rejection.
 
+The dynamic Channel 1 live-manifest endpoint was completed on 2026-08-02. Three controlled-clock end-to-end tests verify the initial rolling window, advancement when server time crosses a segment boundary, and a 404 response for an unknown channel. The full suite passes with 51 tests, type checking and both production builds succeed, the production dependency audit reports zero known vulnerabilities, and the diff check passes.
+
 The earlier end-to-end Channel 1 VOD prototype remains reusable. The web client loads current-program instructions, selects hls.js or native HLS, reports unsupported playback, and releases media resources during React cleanup. The API and Vite development path can serve and play the generated Program A and Program B fixtures.
 
 This remains a useful integration prototype, not the final playback security model. It currently exposes complete VOD manifests and raw future segments under `/media`, and the current-program response provides a program manifest URL. Those paths must be replaced before Phase 1 is complete.
@@ -99,11 +101,11 @@ This remains a useful integration prototype, not the final playback security mod
 
 ## Current task
 
-Run full verification, review the accumulated diff, and create coherent Git checkpoints for the browser foundation, server-authoritative architecture decision, and live-publication primitives.
+Commit and push the verified dynamic live-manifest endpoint checkpoint.
 
 ## Next task
 
-Compose the segment-window resolver and playlist renderer behind `GET /api/channels/:channelId/live/index.m3u8`, including content-type, no-store, unknown-channel, and disclosure tests.
+Begin the publication-enforced segment gateway with positive access for a published sequence and negative access tests for future, expired, and unknown sequences.
 
 ## Revised Phase 1 implementation order
 

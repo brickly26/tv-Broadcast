@@ -11,4 +11,11 @@ export class ChannelsController {
   getCurrentProgram(@Param("channelId") channelId: string) {
     return this.channelsService.getCurrentProgram(channelId);
   }
+
+  @Get(":channelId/live/index.m3u8")
+  @Header("Content-Type", "application/vnd.apple.mpegurl")
+  @Header("Cache-Control", "no-store")
+  getLiveManifest(@Param("channelId") channelId: string): string {
+    return this.channelsService.getLiveManifest(channelId);
+  }
 }
