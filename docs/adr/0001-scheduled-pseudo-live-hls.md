@@ -1,6 +1,6 @@
 # ADR 0001: Use Scheduled Pseudo-Live HLS
 
-- Status: Superseded in part by ADR 0002
+- Status: Superseded by ADR 0005
 - Date: 2026-07-21
 
 ## Context
@@ -17,7 +17,7 @@ Published schedule versions are immutable. Changes are made in a draft and activ
 
 The first synchronization target is a maximum two-second difference between viewers under normal conditions.
 
-ADR 0002 retains prerecorded HLS assets, authoritative server time, and shared playback offsets, but replaces future-activated schedule versions with simpler epoch-anchored looping playlists.
+ADR 0002 retained prerecorded HLS assets and authoritative server time but replaced future-activated schedule versions with simpler epoch-anchored looping playlists. ADR 0005 retains preprocessing and the shared timeline while replacing full VOD delivery and trusted client seeking with server-authoritative rolling live publication.
 
 ## Consequences
 

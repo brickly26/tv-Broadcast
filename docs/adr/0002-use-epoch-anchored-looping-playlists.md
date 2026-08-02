@@ -1,6 +1,6 @@
 # ADR 0002: Use Epoch-Anchored Looping Playlists
 
-- Status: Accepted
+- Status: Accepted for channel timing; delivery amended by ADR 0005
 - Date: 2026-07-23
 
 ## Context
@@ -25,13 +25,15 @@ Resolve the video and its playback offset by walking the ordered playlist. Posit
 
 The first synchronization vertical slice uses a static playlist. The behavior for applying playlist edits to an active channel will be decided with the administrative workflow.
 
+ADR 0005 uses this calculation as the authoritative channel timeline but no longer sends the resolved asset and offset to the browser for VOD seeking. The server instead maps the timeline to a rolling window of published channel segments.
+
 ## Consequences
 
 ### Benefits
 
 - The model directly matches continuously looping channels.
-- No program-specific wall-clock schedule or publication system is required.
-- Every viewer can derive the same program and offset from shared server time.
+- No program-specific wall-clock schedule is required.
+- The server can derive a deterministic channel position and publication window from shared time without a continuously running encoder.
 - The core calculation remains deterministic and easy to unit test.
 
 ### Costs and limitations
