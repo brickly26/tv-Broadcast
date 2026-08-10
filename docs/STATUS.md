@@ -44,6 +44,8 @@ Milestones 1A and the pure portion of 1B were completed on 2026-08-02. Fifteen c
 
 The dynamic Channel 1 live-manifest endpoint was completed on 2026-08-02. Three controlled-clock end-to-end tests verify the initial rolling window, advancement when server time crosses a segment boundary, and a 404 response for an unknown channel. The full suite passes with 51 tests, type checking and both production builds succeed, the production dependency audit reports zero known vulnerabilities, and the diff check passes.
 
+The publication-enforced segment gateway was completed on 2026-08-10. Seven controlled-clock end-to-end tests prove successful delivery inside the six-segment window, future-segment denial, availability at the exact publication boundary, denial after window expiry, wrong-channel isolation, malformed-filename denial, and denial of distant unavailable sequences. Eligible responses stream nonempty MPEG-TS bytes; denials use a generic `404`; both use `Cache-Control: no-store`. The full suite passes with 58 tests, type checking and both production builds succeed, the production dependency audit reports zero known vulnerabilities, and the diff check passes.
+
 The earlier end-to-end Channel 1 VOD prototype remains reusable. The web client loads current-program instructions, selects hls.js or native HLS, reports unsupported playback, and releases media resources during React cleanup. The API and Vite development path can serve and play the generated Program A and Program B fixtures.
 
 This remains a useful integration prototype, not the final playback security model. It currently exposes complete VOD manifests and raw future segments under `/media`, and the current-program response provides a program manifest URL. Those paths must be replaced before Phase 1 is complete.
@@ -101,11 +103,11 @@ This remains a useful integration prototype, not the final playback security mod
 
 ## Current task
 
-Commit and push the verified dynamic live-manifest endpoint checkpoint.
+Commit and push the verified publication-enforced segment gateway checkpoint.
 
 ## Next task
 
-Begin the publication-enforced segment gateway with positive access for a published sequence and negative access tests for future, expired, and unknown sequences.
+Retire unrestricted viewer access to raw `/media` assets and prove direct VOD-manifest and raw-segment requests are unavailable.
 
 ## Revised Phase 1 implementation order
 

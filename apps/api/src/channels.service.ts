@@ -58,9 +58,7 @@ export class ChannelsService {
   constructor(private readonly clock: Clock) {}
 
   getCurrentProgram(channelId: string) {
-    if (channelId !== channelOneId) {
-      throw new NotFoundException(`Channel "${channelId}" was not found`);
-    }
+    this.assertChannelExists(channelId);
 
     const serverTimeMs = this.clock.now();
 
@@ -75,6 +73,32 @@ export class ChannelsService {
       ...currentProgram,
       manifestUrl: `/media/${channelId}/${currentProgram.programId}/index.m3u8`,
     };
+  }
+
+  getPublishedSegment(channelId: string, sequence: number) {
+    if (
+      channelId !== channelOneId ||
+      !Number.isSafeInteger(sequence) ||
+      sequence < 0
+    ) {
+      throw new NotFoundException("Segment was not found");
+    }
+
+    const publishedWindow = resolvePublishedSegmentWindow(
+      channelOneSegmentedPlaylist,
+      this.clock.now(),
+      liveWindowSizeSegments,
+    );
+
+    const segment = publishedWindow.segments.find(
+      (candidate) => candidate.sequence === sequence,
+    );
+
+    if (segment === undefined) {
+      throw new NotFoundException("Segment was not found");
+    }
+
+    return segment;
   }
 
   getLiveManifest(channelId: string): string {
