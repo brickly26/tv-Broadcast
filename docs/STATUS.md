@@ -46,9 +46,9 @@ The dynamic Channel 1 live-manifest endpoint was completed on 2026-08-02. Three 
 
 The publication-enforced segment gateway was completed on 2026-08-10. Seven controlled-clock end-to-end tests prove successful delivery inside the six-segment window, future-segment denial, availability at the exact publication boundary, denial after window expiry, wrong-channel isolation, malformed-filename denial, and denial of distant unavailable sequences. Eligible responses stream nonempty MPEG-TS bytes; denials use a generic `404`; both use `Cache-Control: no-store`. The full suite passes with 58 tests, type checking and both production builds succeed, the production dependency audit reports zero known vulnerabilities, and the diff check passes.
 
-The earlier end-to-end Channel 1 VOD prototype remains reusable. The web client loads current-program instructions, selects hls.js or native HLS, reports unsupported playback, and releases media resources during React cleanup. The API and Vite development path can serve and play the generated Program A and Program B fixtures.
+The unrestricted `/media` prototype route was retired on 2026-08-10. Complete VOD manifests and raw fixture segments now return `404`, current-program metadata no longer exposes private manifest URLs, the static-serving dependency and custom Webpack workaround were removed, and Vite no longer proxies `/media`. The authorized live manifest and segment gateway remain green. The full suite passes with 57 tests, type checking and both production builds succeed, the production dependency audit reports zero known vulnerabilities, and the diff check passes.
 
-This remains a useful integration prototype, not the final playback security model. It currently exposes complete VOD manifests and raw future segments under `/media`, and the current-program response provides a program manifest URL. Those paths must be replaced before Phase 1 is complete.
+The earlier end-to-end Channel 1 VOD prototype remains reusable as internal validation and client-adapter work. The web client loads playback instructions, selects hls.js or native HLS, reports unsupported playback, and releases media resources during React cleanup. Its active integration must now be pointed at the channel live manifest rather than a program VOD URL.
 
 ## Reusable completed work
 
@@ -60,11 +60,11 @@ This remains a useful integration prototype, not the final playback security mod
 
 ## Work replaced or paused
 
-- Public static `/media` delivery is a prototype that must be retired from the viewer path.
-- The current-program endpoint may remain for public metadata, but must stop returning private asset manifest URLs.
+- Public static `/media` delivery was retired from the viewer path on 2026-08-10; fixtures and validation manifests remain internal artifacts.
+- The current-program endpoint is metadata-only and no longer returns private asset manifest URLs.
 - Client-side authoritative-offset seeking is no longer the playback model.
 - The in-progress request-timing/offset work is paused. Timing may later be reused for telemetry or bounded drift correction, but not for publication authorization.
-- Existing positive tests for fetching complete VOD manifests and raw asset segments must be replaced with publication-window tests and direct-request denial tests.
+- Earlier positive tests for complete VOD manifests and raw asset segments were replaced with publication-window tests and direct-request denial tests.
 
 ## Development environment inventory
 
@@ -80,7 +80,6 @@ This remains a useful integration prototype, not the final playback security mod
 - Testing Library jest-dom matchers: 7.0.0
 - jsdom web test environment: 29.1.1
 - NestJS API dependencies: 11.1.28
-- NestJS static-serving dependency: 5.0.5; temporary until prototype `/media` delivery is removed
 - NestJS CLI project dependency: 11.0.24
 - Supertest API test dependency: 7.2.2
 - SWC test transformer: 1.15.46 through unplugin-swc 1.5.9
@@ -97,17 +96,17 @@ This remains a useful integration prototype, not the final playback security mod
 
 ## Dependency audit
 
-- Production dependencies: zero known vulnerabilities on 2026-07-24.
+- Production dependencies: zero known vulnerabilities on 2026-08-10.
 - Development dependencies: four high-severity audit findings share one transitive Nest CLI build-tool chain through `fork-ts-checker-webpack-plugin`, `minimatch`, and `brace-expansion`.
 - The current npm force-fix recommendation would downgrade Nest CLI from 11 to 6. The breaking forced downgrade was rejected; monitor the upstream toolchain for a compatible fix.
 
 ## Current task
 
-Commit and push the verified publication-enforced segment gateway checkpoint.
+Commit and push the verified raw-media shutdown checkpoint.
 
 ## Next task
 
-Retire unrestricted viewer access to raw `/media` assets and prove direct VOD-manifest and raw-segment requests are unavailable.
+Point the React player at the server-authoritative channel live manifest and remove client-authoritative offset seeking from the active playback path.
 
 ## Revised Phase 1 implementation order
 

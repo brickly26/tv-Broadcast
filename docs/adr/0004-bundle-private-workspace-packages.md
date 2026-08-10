@@ -15,7 +15,7 @@ Keep private internal workspace packages source-based and bundle their source in
 
 Use the Nest CLI with Webpack and `ts-loader` for the API. Keep `moduleResolution: "Bundler"` explicit in the shared TypeScript configuration. Continue running `tsc --noEmit` separately for static type checking and Vitest with SWC for tests.
 
-Keep adapter-specific optional dependencies out of the application when their adapter is not used. The API's custom Webpack configuration ignores the optional `@fastify/static` import exposed by `@nestjs/serve-static` because this application uses Express.
+Keep adapter-specific optional dependencies out of the application when their adapter is not used. The API uses the default Nest Webpack configuration. A temporary custom configuration that ignored the optional `@fastify/static` import was removed with `@nestjs/serve-static` when the unrestricted prototype media route was retired on 2026-08-10.
 
 The separate video worker will own its build configuration when introduced. Any workspace package that later needs to be published or executed independently must gain a dedicated compiled-package build instead of relying on this decision.
 

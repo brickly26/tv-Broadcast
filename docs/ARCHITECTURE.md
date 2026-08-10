@@ -87,7 +87,7 @@ flowchart LR
 
 ## Local media delivery transition
 
-The existing Phase 1 prototype serves generated fixtures under `/media` and exposes complete VOD manifests and raw segment paths. It proved that NestJS, Vite, hls.js, and the generated media work together, but it is not the final viewer architecture and currently violates the revised publication boundary.
+The earlier Phase 1 prototype served generated fixtures under `/media` and exposed complete VOD manifests and raw segment paths. It proved that NestJS, Vite, hls.js, and the generated media work together, but it did not enforce the revised publication boundary.
 
 The replacement viewer routes are:
 
@@ -96,7 +96,7 @@ GET /api/channels/:channelId/live/index.m3u8
 GET /api/channels/:channelId/live/segments/:sequence.ts
 ```
 
-The unrestricted `/media` fixture route must be removed from the viewer path before the secure slice is complete. Generated fixture files remain ignored by Git and are recreated by `scripts/generate-hls-fixtures.sh`; their VOD manifests remain useful for FFmpeg validation and test setup only.
+The unrestricted `/media` fixture route and its Vite development proxy were removed on 2026-08-10. Current-program metadata no longer returns private VOD manifest URLs. Generated fixture files remain ignored by Git and are recreated by `scripts/generate-hls-fixtures.sh`; their VOD manifests remain useful for FFmpeg validation and test setup only. Viewer delivery now passes through the live manifest and publication-enforced channel-sequence gateway.
 
 ## Web playback boundary
 
@@ -108,9 +108,9 @@ These boundaries remain useful. The integration changes from loading a program V
 
 Private TypeScript workspace packages expose source entry points for reuse within the repository. Deployable applications bundle that source into their own runtime artifacts rather than requiring Node.js to execute TypeScript package entry points.
 
-The NestJS API uses the Nest CLI with Webpack and `ts-loader`. Root type checking remains a separate `tsc --noEmit` step, and Vitest continues to use SWC. The API bundle is emitted at `apps/api/dist/main.js`. Its custom Webpack configuration ignores the unused optional `@fastify/static` import exposed by `@nestjs/serve-static`; the static-serving dependency can be removed after the unrestricted prototype media route is retired.
+The NestJS API uses the Nest CLI with its default Webpack configuration and `ts-loader`. Root type checking remains a separate `tsc --noEmit` step, and Vitest continues to use SWC. The API bundle is emitted at `apps/api/dist/main.js`. The temporary static-serving dependency and custom Webpack configuration were removed with the unrestricted prototype media route.
 
-The React application uses Vite and emits production assets under `apps/web/dist/`. During development, Vite proxies `/api` to NestJS. The `/media` proxy exists only for the prototype and should be removed with the public static route.
+The React application uses Vite and emits production assets under `apps/web/dist/`. During development, Vite proxies `/api` to NestJS. There is no separate raw-media proxy.
 
 This source-bundling approach applies to private internal packages. A package that later needs to be published or executed independently will require its own compiled JavaScript and declaration output.
 

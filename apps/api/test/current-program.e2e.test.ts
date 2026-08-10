@@ -48,7 +48,6 @@ describe("GET /api/channels/:channelId/current-program", () => {
       programId: "program-a",
       programIndex: 0,
       offsetMs: 25000,
-      manifestUrl: "/media/channel-1/program-a/index.m3u8",
     });
   });
 
@@ -64,7 +63,7 @@ describe("GET /api/channels/:channelId/current-program", () => {
     });
   });
 
-  it("returns Program B's manifest after crossing the slot boundary", async () => {
+  it("returns Program B metadata after crossing the slot boundary", async () => {
     currentServerTimeMs = playbackEpochMs + 65_000;
 
     const response = await request(app.getHttpServer()).get(
@@ -80,7 +79,6 @@ describe("GET /api/channels/:channelId/current-program", () => {
       programId: "program-b",
       programIndex: 1,
       offsetMs: 5_000,
-      manifestUrl: "/media/channel-1/program-b/index.m3u8",
     });
   });
 });

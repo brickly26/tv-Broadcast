@@ -71,7 +71,6 @@ export class ChannelsService {
       channelId,
       serverTimeMs,
       ...currentProgram,
-      manifestUrl: `/media/${channelId}/${currentProgram.programId}/index.m3u8`,
     };
   }
 

@@ -7,7 +7,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { AppModule } from "../src/app.module";
 
-describe("GET /media/:channelId/:programId/:fileName", () => {
+describe("unrestricted raw media access", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -22,39 +22,27 @@ describe("GET /media/:channelId/:programId/:fileName", () => {
     await app.close();
   });
 
-  it("serves Program A's HLS manifest", async () => {
+  it("does not expose complete VOD manifests", async () => {
     const response = await request(app.getHttpServer()).get(
       "/media/channel-1/program-a/index.m3u8",
     );
 
-    const manifestText = Buffer.isBuffer(response.body)
-      ? response.body.toString("utf8")
-      : response.text;
-
-    expect(response.status).toBe(200);
-    expect(response.header["content-type"]).toContain(
-      "application/vnd.apple.mpegurl",
-    );
-    expect(manifestText).toContain("#EXTM3U");
-    expect(manifestText).toContain("segment-000.ts");
-  });
-
-  it("returns 404 when the media file does not exist", async () => {
-    const response = await request(app.getHttpServer()).get(
-      "/media/channel-1/program-a/missing-segment.ts",
-    );
-
     expect(response.status).toBe(404);
+    expect(response.headers["content-type"]).toContain("application/json");
+    expect(response.body).toMatchObject({
+      statusCode: 404,
+    });
   });
 
-  it("serves an HLS media segment", async () => {
+  it("does not expose raw fixture segments", async () => {
     const response = await request(app.getHttpServer()).get(
       "/media/channel-1/program-a/segment-000.ts",
     );
 
-    expect(response.status).toBe(200);
-    expect(response.header["content-type"]).toContain("video/mp2t");
-    expect(Buffer.isBuffer(response.body)).toBe(true);
-    expect(response.body.byteLength).toBeGreaterThan(0);
+    expect(response.status).toBe(404);
+    expect(response.headers["content-type"]).toContain("application/json");
+    expect(response.body).toMatchObject({
+      statusCode: 404,
+    });
   });
 });
